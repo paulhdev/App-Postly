@@ -15,9 +15,31 @@ import {
 export default function Login() {
 
   const [login, setLogin] = useState(true)
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [pass, setPass] = useState('')
 
   const toggleLogin = () => {
+    setName('')
+    setEmail('')
+    setPass('')
     setLogin(!login)
+  }
+
+  const handleSignIn = () => {
+    if (email === '' || pass === '') {
+      alert('Preencha todos os campos!')
+      return
+    }
+    alert('Acessando...')
+  }
+
+  const handleSignUp = () => {
+    if (name === '' || email === '' || pass === '') {
+      alert('Preencha todos os campos!')
+      return
+    }
+    alert('Criando conta...')
   }
 
   if (!login) {
@@ -28,21 +50,30 @@ export default function Login() {
           <Icon name='person-outline' />
           <Input
             placeholder='Nome'
+            value={name}
+            onChangeText={text => setName(text)}
           />
         </InputArea>
         <InputArea>
           <Icon name='mail-outline' />
           <Input
             placeholder='meuemail@gmail.com'
+            keyboardType='email-address'
+            autoCapitalize='none'
+            value={email}
+            onChangeText={text => setEmail(text)}
           />
         </InputArea>
         <InputArea>
           <Icon name='lock-closed-outline' />
           <Input
             placeholder='******'
+            secureTextEntry
+            value={pass}
+            onChangeText={text => setPass(text)}
           />
         </InputArea>
-        <Button>
+        <Button onPress={handleSignUp}>
           <ButtonText>Cadastrar-se</ButtonText>
         </Button>
         <SignUpButton onPress={toggleLogin}>
@@ -59,15 +90,22 @@ export default function Login() {
         <Icon name='mail-outline' />
         <Input
           placeholder='meuemail@gmail.com'
+          keyboardType='email-address'
+          autoCapitalize='none'
+          value={email}
+          onChangeText={text => setEmail(text)}
         />
       </InputArea>
       <InputArea>
         <Icon name='lock-closed-outline' />
         <Input
           placeholder='******'
+          secureTextEntry
+          value={pass}
+          onChangeText={text => setPass(text)}
         />
       </InputArea>
-      <Button>
+      <Button onPress={handleSignIn}>
         <ButtonText>Acessar</ButtonText>
       </Button>
       <SignUpButton onPress={toggleLogin}>
