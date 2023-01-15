@@ -9,9 +9,11 @@ export default function Routes() {
   const loading = false;
 
   if (loading) {
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#36393f' }}>
-      <ActivityIndicator size='large' color='#00bfff' />
-    </View>
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#36393f' }}>
+        <ActivityIndicator size='large' color='#00bfff' />
+      </View>
+    )
   }
 
   return (
