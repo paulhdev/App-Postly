@@ -18,7 +18,7 @@ export default function Header() {
     <Container>
       <View>
         <Description>Bem-vindo(a) ao Postly,</Description>
-        <Title>{user.name}</Title>
+        <Title numberOfLines={1}>{user.name}</Title>
       </View>
       <AreaIcons>
         <TouchableOpacity>

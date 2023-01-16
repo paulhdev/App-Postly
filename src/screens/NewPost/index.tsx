@@ -1,15 +1,18 @@
 import React, { useContext, useState } from 'react'
-import { View, ActivityIndicator, Keyboard } from 'react-native'
+import { View, ActivityIndicator, Keyboard, TouchableOpacity } from 'react-native'
 import firebase from '../../services/firebaseConnect'
 
 import {
   Container,
+  TitleArea,
   Title,
+  Icon,
   Input,
   ButtonArea,
   TextIndicator,
   Button,
-  ButtonText
+  ButtonText,
+  EmojiArea
 } from './styles'
 
 import { AuthContext } from '../../contexts/AuthContext'
@@ -30,7 +33,16 @@ export default function NewPost() {
   const { user } = useContext(AuthContext)
 
   const [postText, setPostText] = useState('')
+  const [emojiOpen, setEmojiOpen] = useState(false)
   const [loadingPost, setLoadingPost] = useState(false)
+
+  const handleEmojiSelect = (emoji: string) => {
+    setPostText(postText + emoji)
+  }
+
+  const handleToggleEmoji = () => {
+    setEmojiOpen(!emojiOpen)
+  }
 
   const handlePost = async () => {
     setLoadingPost(true)
@@ -63,18 +75,32 @@ export default function NewPost() {
         setPostText('')
         setLoadingPost(false)
         Keyboard.dismiss()
+        setEmojiOpen(false)
         alert('Seu post foi criado com sucesso!')
       })
       .catch(error => {
         alert('Erro ao criar post! Tente novamente.')
         setLoadingPost(false)
+        setEmojiOpen(false)
       })
   }
 
   return (
     <Container>
       <View>
-        <Title>O que está acontecendo?</Title>
+        <TitleArea>
+          <Title>O que está acontecendo?</Title>
+          {
+            !emojiOpen ?
+              <TouchableOpacity onPress={handleToggleEmoji}>
+                <Icon name='ios-happy-outline' />
+              </TouchableOpacity>
+              :
+              <TouchableOpacity onPress={handleToggleEmoji}>
+                <Icon name='close-outline' />
+              </TouchableOpacity>
+          }
+        </TitleArea>
         <Input
           placeholder='Descreva em algumas palavras...'
           autoCorrect={false}
@@ -97,6 +123,12 @@ export default function NewPost() {
             </>
         }
       </ButtonArea>
+      {
+        emojiOpen &&
+        <EmojiArea
+          onEmojiSelected={emoji => handleEmojiSelect(emoji)}
+        />
+      }
     </Container>
   )
 }

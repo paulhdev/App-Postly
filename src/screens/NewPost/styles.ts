@@ -1,4 +1,6 @@
 import styled from 'styled-components/native';
+import EmojiSelector from 'react-native-emoji-selector';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 export const Container = styled.View`
   flex: 1;
@@ -7,9 +9,27 @@ export const Container = styled.View`
   justify-content: space-between;
 `;
 
+export const TitleArea = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 export const Title = styled.Text`
   font-size: 20px;
   font-weight: bold;
+`;
+
+export const Icon = styled(Ionicons)`
+  font-size: 24px;
+  color: #c4bebc;
+`;
+
+export const EmojiArea = styled(EmojiSelector).attrs({
+  columns: 9,
+})`
+  width: 100%;
+  height: 60%;
 `;
 
 export const Input = styled.TextInput`
