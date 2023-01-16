@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { ActivityIndicator } from 'react-native'
 
 import {
   Container,
@@ -12,7 +13,11 @@ import {
   SignUpText
 } from './styles'
 
+import { AuthContext } from '../../contexts/AuthContext'
+
 export default function Login() {
+
+  const { signIn, signUp, loadingAuth } = useContext(AuthContext)
 
   const [login, setLogin] = useState(true)
   const [name, setName] = useState('')
@@ -31,15 +36,15 @@ export default function Login() {
       alert('Preencha todos os campos!')
       return
     }
-    alert('Acessando...')
+    signIn(email, pass)
   }
 
   const handleSignUp = () => {
     if (name === '' || email === '' || pass === '') {
-      alert('Preencha todos os campos!')
+      alert('Preencha todos os campos....!')
       return
     }
-    alert('Criando conta...')
+    signUp(name, email, pass)
   }
 
   if (!login) {
@@ -73,8 +78,13 @@ export default function Login() {
             onChangeText={text => setPass(text)}
           />
         </InputArea>
-        <Button onPress={handleSignUp}>
-          <ButtonText>Cadastrar-se</ButtonText>
+        <Button onPress={handleSignUp} disabled={loadingAuth}>
+          {
+            loadingAuth ?
+              <ActivityIndicator size='large' color='#fff' />
+              :
+              <ButtonText>Cadastrar-se</ButtonText>
+          }
         </Button>
         <SignUpButton onPress={toggleLogin}>
           <SignUpText>Já tem uma conta? Acesse</SignUpText>
@@ -105,8 +115,13 @@ export default function Login() {
           onChangeText={text => setPass(text)}
         />
       </InputArea>
-      <Button onPress={handleSignIn}>
-        <ButtonText>Acessar</ButtonText>
+      <Button onPress={handleSignIn} disabled={loadingAuth}>
+        {
+          loadingAuth ?
+            <ActivityIndicator size='large' color='#fff' />
+            :
+            <ButtonText>Acessar</ButtonText>
+        }
       </Button>
       <SignUpButton onPress={toggleLogin}>
         <SignUpText>Não tem uma conta? Cadastre-se</SignUpText>
