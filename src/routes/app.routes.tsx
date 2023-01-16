@@ -46,7 +46,7 @@ export default function AppRoutes() {
       }}
     >
       <Tab.Screen
-        name='HomeTab'
+        name='Home'
         component={StackRoutes}
         options={{
           tabBarIcon: ({ color, size }) => {
