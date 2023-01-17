@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { formatDistance } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
+import firebase from '../../../services/firebaseConnect'
 
 import {
   Container,
@@ -34,6 +35,37 @@ export default function Post({ data, currentUserId }: PostProps) {
 
   const [likePost, setLikePost] = useState(data.likes)
 
+  const handlePostLike = async (id: string, likes: number) => {
+    const docId = `${currentUserId}_${id}`
+
+    const doc = await firebase.firestore().collection('likes').doc(docId).get()
+
+    if (doc.exists) {
+      await firebase.firestore().collection('posts').doc(id).update({
+        likes: likes - 1
+      })
+
+      await firebase.firestore().collection('likes').doc(docId).delete()
+        .then(() => {
+          setLikePost(likes - 1)
+        })
+
+      return
+    }
+
+    await firebase.firestore().collection('likes').doc(docId).set({
+      postId: id,
+      userId: currentUserId
+    })
+
+    await firebase.firestore().collection('posts').doc(id).update({
+      likes: likes + 1
+    })
+      .then(() => {
+        setLikePost(likes + 1)
+      })
+  }
+
   const formatTime = () => {
     const datePost = new Date(data.createdAt.seconds * 1000)
 
@@ -62,7 +94,8 @@ export default function Post({ data, currentUserId }: PostProps) {
           <LikesNumber>
             {likePost === 0 ? '' : Number(likePost)}
           </LikesNumber>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => handlePostLike(data.id, likePost)}>
+            {/* Check if the current user liked */}
             <Icon name={likePost === 0 ? 'heart-outline' : 'heart'} color={likePost === 0 ? '#000' : '#e52246'} />
           </TouchableOpacity>
         </LikesArea>
