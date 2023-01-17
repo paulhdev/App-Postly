@@ -42,11 +42,11 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       .then(async (currentUser) => {
         const uid = currentUser.user?.uid
 
-        const userProfile = await firebase.firestore().collection('users').doc(uid).get()
+        // const userProfile = await firebase.firestore().collection('users').doc(uid).get()
 
         const data = {
           uid: uid as string,
-          name: userProfile.data.name,
+          name: currentUser.user?.displayName as string,
           email: currentUser.user?.email as string
         }
 
@@ -56,8 +56,15 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 
       })
       .catch(error => {
-        console.log('SIGN IN: ', error)
+        // console.log('SIGN IN: ', error)
         setLoadingAuth(false)
+        switch (error.code) {
+          case 'auth/invalid-credential':
+            alert('Credenciais inválidas! Tente novamente.')
+            break
+          default:
+            alert('Ops! Houve um erro, tente novamente em alguns minutos.')
+        }
       })
   }
 
@@ -66,6 +73,10 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     await firebase.auth().createUserWithEmailAndPassword(email, pass)
       .then(async (currentUser) => {
         const uid = currentUser.user?.uid
+
+        await currentUser.user?.updateProfile({
+          displayName: name
+        })
 
         await firebase.firestore().collection('users').doc(uid).set({
           name: name,
@@ -85,8 +96,18 @@ export default function AuthProvider({ children }: AuthProviderProps) {
           })
       })
       .catch(error => {
-        console.log('SIGN UP: ', error)
+        // console.log('SIGN UP: ', error)
         setLoadingAuth(false)
+        switch (error.code) {
+          case 'auth/email-already-exists':
+            alert('Este e-mail já existe! Tente usar um outro e-mail.')
+            break
+          case 'auth/weak-password':
+            alert('A senha deve ter no mínimo 6 caracteres.')
+            break
+          default:
+            alert('Ops! Houve um erro, tente novamente em alguns minutos.')
+        }
       })
   }
 

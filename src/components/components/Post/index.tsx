@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { formatDistance } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
@@ -34,6 +34,18 @@ type PostProps = {
 export default function Post({ data, currentUserId }: PostProps) {
 
   const [likePost, setLikePost] = useState(data.likes)
+  const [isLiked, setIsLiked] = useState(false)
+
+  useEffect(() => {
+    const checkLiked = async () => {
+      const docId = `${currentUserId}_${data.id}`
+      const doc = await firebase.firestore().collection('likes').doc(docId).get()
+      if (doc.exists) {
+        setIsLiked(true)
+      }
+    }
+    checkLiked()
+  }, [])
 
   const handlePostLike = async (id: string, likes: number) => {
     const docId = `${currentUserId}_${id}`
@@ -47,6 +59,7 @@ export default function Post({ data, currentUserId }: PostProps) {
 
       await firebase.firestore().collection('likes').doc(docId).delete()
         .then(() => {
+          setIsLiked(false)
           setLikePost(likes - 1)
         })
 
@@ -62,6 +75,7 @@ export default function Post({ data, currentUserId }: PostProps) {
       likes: likes + 1
     })
       .then(() => {
+        setIsLiked(true)
         setLikePost(likes + 1)
       })
   }
@@ -96,7 +110,7 @@ export default function Post({ data, currentUserId }: PostProps) {
           </LikesNumber>
           <TouchableOpacity onPress={() => handlePostLike(data.id, likePost)}>
             {/* Check if the current user liked */}
-            <Icon name={likePost === 0 ? 'heart-outline' : 'heart'} color={likePost === 0 ? '#000' : '#e52246'} />
+            <Icon name={!isLiked ? 'heart-outline' : 'heart'} color={!isLiked ? '#000' : '#e52246'} />
           </TouchableOpacity>
         </LikesArea>
         <TimePost>
