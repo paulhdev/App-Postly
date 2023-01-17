@@ -1,5 +1,7 @@
 import React, { useContext, useState } from 'react'
-import { View, ActivityIndicator, Keyboard, TouchableOpacity } from 'react-native'
+import { View, ActivityIndicator, TouchableOpacity } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import * as ImagePicker from 'expo-image-picker'
 import firebase from '../../services/firebaseConnect'
 
 import {
@@ -12,7 +14,7 @@ import {
   TextIndicator,
   Button,
   ButtonText,
-  EmojiArea
+  ImagePreview
 } from './styles'
 
 import { AuthContext } from '../../contexts/AuthContext'
@@ -30,18 +32,48 @@ const MAX_LENGHT = 200
 
 export default function NewPost() {
 
+  const navigation = useNavigation()
+
   const { user } = useContext(AuthContext)
 
   const [postText, setPostText] = useState('')
-  const [emojiOpen, setEmojiOpen] = useState(false)
   const [loadingPost, setLoadingPost] = useState(false)
 
-  const handleEmojiSelect = (emoji: string) => {
-    setPostText(postText + emoji)
+  const [isFile, setIsFile] = useState(false)
+  const [hasGalleryPermission, setHasGalleryPermission] = useState(false)
+  const [imageUri, setImageUri] = useState('')
+
+  const handleSelectFile = async () => {
+    setIsFile(true)
+    if (!hasGalleryPermission) {
+      await ImagePicker.requestMediaLibraryPermissionsAsync().then(val => {
+        setHasGalleryPermission(val.status === 'granted')
+        pickImage()
+      })
+      return
+    }
+
+    pickImage()
   }
 
-  const handleToggleEmoji = () => {
-    setEmojiOpen(!emojiOpen)
+  const handleClearFile = () => {
+    setIsFile(false)
+    setImageUri('')
+  }
+
+  const pickImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1
+    })
+
+    console.log(result)
+
+    if (!result.canceled) {
+      setImageUri(result.uri as string)
+    }
   }
 
   const handlePost = async () => {
@@ -74,14 +106,11 @@ export default function NewPost() {
       .then(() => {
         setPostText('')
         setLoadingPost(false)
-        Keyboard.dismiss()
-        setEmojiOpen(false)
-        alert('Seu post foi criado com sucesso!')
+        navigation.navigate('Home')
       })
       .catch(error => {
         alert('Erro ao criar post! Tente novamente.')
         setLoadingPost(false)
-        setEmojiOpen(false)
       })
   }
 
@@ -91,16 +120,20 @@ export default function NewPost() {
         <TitleArea>
           <Title>O que está acontecendo?</Title>
           {
-            !emojiOpen ?
-              <TouchableOpacity onPress={handleToggleEmoji}>
-                <Icon name='ios-happy-outline' />
+            !isFile ?
+              <TouchableOpacity onPress={handleSelectFile}>
+                <Icon name='image-outline' />
               </TouchableOpacity>
               :
-              <TouchableOpacity onPress={handleToggleEmoji}>
+              <TouchableOpacity onPress={handleClearFile}>
                 <Icon name='close-outline' />
               </TouchableOpacity>
           }
         </TitleArea>
+        {
+          imageUri !== '' &&
+          <ImagePreview source={{ uri: imageUri }} />
+        }
         <Input
           placeholder='Descreva em algumas palavras...'
           autoCorrect={false}
@@ -123,12 +156,6 @@ export default function NewPost() {
             </>
         }
       </ButtonArea>
-      {
-        emojiOpen &&
-        <EmojiArea
-          onEmojiSelected={emoji => handleEmojiSelect(emoji)}
-        />
-      }
     </Container>
   )
 }

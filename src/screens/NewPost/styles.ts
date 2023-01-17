@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-import EmojiSelector from 'react-native-emoji-selector';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 export const Container = styled.View`
@@ -25,11 +24,13 @@ export const Icon = styled(Ionicons)`
   color: #c4bebc;
 `;
 
-export const EmojiArea = styled(EmojiSelector).attrs({
-  columns: 9,
+export const ImagePreview = styled.Image.attrs({
+  resizeMode: 'contain',
 })`
   width: 100%;
-  height: 60%;
+  height: 250px;
+  border-radius: 7px;
+  margin: 10px 0;
 `;
 
 export const Input = styled.TextInput`

@@ -38,7 +38,7 @@ export const ImagePost = styled.Image.attrs({
   resizeMode: 'contain',
 })`
   width: 100%;
-  height: 200px;
+  height: 250px;
   border-radius: 7px;
   margin: 10px 0;
 `;

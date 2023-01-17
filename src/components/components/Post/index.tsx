@@ -108,7 +108,7 @@ export default function Post({ data, currentUserId }: PostProps) {
           <LikesNumber>
             {likePost === 0 ? '' : Number(likePost)}
           </LikesNumber>
-          <TouchableOpacity onPress={() => handlePostLike(data.id, likePost)}>
+          <TouchableOpacity onPress={() => handlePostLike(String(data.id), Number(likePost))}>
             {/* Check if the current user liked */}
             <Icon name={!isLiked ? 'heart-outline' : 'heart'} color={!isLiked ? '#000' : '#e52246'} />
           </TouchableOpacity>
