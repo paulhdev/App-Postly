@@ -1,5 +1,7 @@
-import React from 'react'
-import { View, TouchableOpacity } from 'react-native'
+import React, { useState } from 'react'
+import { TouchableOpacity } from 'react-native'
+import { formatDistance } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
 
 import {
   Container,
@@ -16,16 +18,34 @@ import {
 } from './styles'
 
 type PostProps = {
-  id: String;
-  createdAt: Date;
-  content: String;
-  author: String;
-  userId: String;
-  likes: Number;
-  avatarUrl: String | null;
+  data: {
+    id: String;
+    createdAt: Date;
+    content: String;
+    author: String;
+    userId: String;
+    likes: Number;
+    avatarUrl: String | null;
+  };
+  currentUserId: String;
 }
 
-export default function Post({ data }: { data: PostProps }) {
+export default function Post({ data, currentUserId }: PostProps) {
+
+  const [likePost, setLikePost] = useState(data.likes)
+
+  const formatTime = () => {
+    const datePost = new Date(data.createdAt.seconds * 1000)
+
+    return formatDistance(
+      new Date(),
+      datePost,
+      {
+        locale: ptBR
+      }
+    )
+  }
+
   return (
     <Container>
       <CardHeader>
@@ -33,15 +53,22 @@ export default function Post({ data }: { data: PostProps }) {
         <Author numberOfLines={1}>{data.author}</Author>
       </CardHeader>
       <ImagePost source={{ uri: 'https://www.folhadealphaville.com.br/images/articles/4012/b2ap3_large_decoracao-de-home-office-800x600.jpg' }} />
-      <Content>{data.content}</Content>
+      {
+        data.content !== '' &&
+        <Content>{data.content}</Content>
+      }
       <CardFooter>
         <LikesArea>
-          <LikesNumber>12</LikesNumber>
+          <LikesNumber>
+            {likePost === 0 ? '' : Number(likePost)}
+          </LikesNumber>
           <TouchableOpacity>
-            <Icon name='heart-outline' />
+            <Icon name={likePost === 0 ? 'heart-outline' : 'heart'} color={likePost === 0 ? '#000' : '#e52246'} />
           </TouchableOpacity>
         </LikesArea>
-        <TimePost>12 horas</TimePost>
+        <TimePost>
+          {formatTime()}
+        </TimePost>
       </CardFooter>
     </Container>
   )
