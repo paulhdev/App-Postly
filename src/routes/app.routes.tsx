@@ -1,7 +1,7 @@
 import React from 'react'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack'
 
 import Home from '../screens/Home'
 import NewPost from '../screens/NewPost'
@@ -9,8 +9,17 @@ import Search from '../screens/Search'
 import Profile from '../screens/Profile'
 import UserPosts from '../screens/UserPosts'
 
+export type stackAppNavigationProps = {
+  Home: undefined,
+  UserPosts: {
+    uid: string
+  }
+}
+
+export type propsStack = NativeStackNavigationProp<stackAppNavigationProps>
+
 const Tab = createBottomTabNavigator()
-const Stack = createNativeStackNavigator()
+const Stack = createNativeStackNavigator<stackAppNavigationProps>()
 
 function StackRoutes() {
   return (

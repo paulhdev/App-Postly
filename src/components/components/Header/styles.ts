@@ -18,13 +18,13 @@ export const Icon = styled(Ionicons)`
 
 export const Description = styled.Text`
   font-size: 14px;
-  font-weight: bold;
-  color: #c4bebc;
+  font-family: ${(props) => props.theme.fonts.bold};
+  color: ${(props) => props.theme.colors.gray};
 `;
 
 export const Title = styled.Text`
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 18px;
+  font-family: ${(props) => props.theme.fonts.bold};
 `;
 
 export const AreaIcons = styled.View`

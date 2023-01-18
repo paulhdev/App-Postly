@@ -3,7 +3,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 export const Container = styled.View`
   flex: 1;
-  background: #fff;
+  background: ${(props) => props.theme.colors.white};
   padding: 20px 5%;
   justify-content: space-between;
 `;
@@ -16,12 +16,12 @@ export const TitleArea = styled.View`
 
 export const Title = styled.Text`
   font-size: 20px;
-  font-weight: bold;
+  font-family: ${(props) => props.theme.fonts.bold};
 `;
 
 export const Icon = styled(Ionicons)`
   font-size: 24px;
-  color: #c4bebc;
+  color: ${(props) => props.theme.colors.gray};
 `;
 
 export const ImagePreview = styled.Image.attrs({
@@ -30,12 +30,13 @@ export const ImagePreview = styled.Image.attrs({
   width: 100%;
   height: 250px;
   border-radius: 7px;
-  margin: 10px 0;
+  margin-top: 10px;
 `;
 
 export const Input = styled.TextInput`
   font-size: 16px;
-  margin-top: 15px;
+  margin-top: 10px;
+  font-family: ${(props) => props.theme.fonts.regular};
 `;
 
 export const ButtonArea = styled.View`
@@ -44,19 +45,19 @@ export const ButtonArea = styled.View`
 `;
 
 export const Button = styled.TouchableOpacity`
-  background: #eb5e11;
+  background: ${(props) => props.theme.colors.primary};
   border-radius: 7px;
   padding: 10px;
 `;
 
 export const ButtonText = styled.Text`
   font-size: 16px;
-  font-weight: bold;
-  color: #fff;
+  font-family: ${(props) => props.theme.fonts.bold};
+  color: ${(props) => props.theme.colors.white};
 `;
 
 export const TextIndicator = styled.Text`
   font-size: 14px;
-  color: #c4bebc;
+  color: ${(props) => props.theme.colors.gray};
   margin-top: 5px;
 `;

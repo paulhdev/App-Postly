@@ -4,6 +4,8 @@ import { useNavigation } from '@react-navigation/native'
 import * as ImagePicker from 'expo-image-picker'
 import firebase from '../../services/firebaseConnect'
 
+import { propsStack } from '../../routes/app.routes'
+
 import {
   Container,
   TitleArea,
@@ -32,7 +34,7 @@ const MAX_LENGHT = 200
 
 export default function NewPost() {
 
-  const navigation = useNavigation()
+  const navigation = useNavigation<propsStack>()
 
   const { user } = useContext(AuthContext)
 
@@ -69,11 +71,12 @@ export default function NewPost() {
       quality: 1
     })
 
-    console.log(result)
-
-    if (!result.canceled) {
-      setImageUri(result.uri as string)
+    if (result.canceled) {
+      setIsFile(false)
+      return
     }
+
+    setImageUri(result.uri as string)
   }
 
   const handlePost = async () => {

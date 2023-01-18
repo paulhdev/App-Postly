@@ -5,14 +5,13 @@ export const Container = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
-  background-color: #fff;
+  background-color: ${(props) => props.theme.colors.white};
 `;
 
 export const Title = styled.Text`
   font-size: 50px;
-  font-weight: bold;
-  font-style: italic;
   margin-bottom: 30px;
+  font-family: ${(props) => props.theme.fonts.bold};
 `;
 
 export const InputArea = styled.View`
@@ -25,13 +24,13 @@ export const InputArea = styled.View`
   padding: 10px;
   border-radius: 7px;
   border-bottom-width: 1px;
-  border-color: #eb5e11;
+  border-color: ${(props) => props.theme.colors.primary};
   margin-top: 15px;
 `;
 
 export const Icon = styled(Ionicons)`
   font-size: 24px;
-  color: #c4bebc;
+  color: ${(props) => props.theme.colors.gray};
 `;
 
 export const Input = styled.TextInput`
@@ -39,6 +38,7 @@ export const Input = styled.TextInput`
   flex-grow: 1;
   margin-left: 5px;
   height: 55px;
+  font-family: ${(props) => props.theme.fonts.regular};
 `;
 
 export const Button = styled.TouchableOpacity`
@@ -47,15 +47,15 @@ export const Button = styled.TouchableOpacity`
   height: 55px;
   align-items: center;
   justify-content: center;
-  background-color: #eb5e11;
+  background-color: ${(props) => props.theme.colors.primary};
   margin: 30px 0;
   border-radius: 7px;
 `;
 
 export const ButtonText = styled.Text`
-  font-weight: bold;
-  color: #fff;
+  color: ${(props) => props.theme.colors.white};
   font-size: 20px;
+  font-family: ${(props) => props.theme.fonts.bold};
 `;
 
 export const SignUpButton = styled.TouchableOpacity`
@@ -64,7 +64,7 @@ export const SignUpButton = styled.TouchableOpacity`
 `;
 
 export const SignUpText = styled.Text`
-  font-weight: bold;
+  font-family: ${(props) => props.theme.fonts.medium};
   font-size: 16px;
-  color: #c4bebc;
+  color: ${(props) => props.theme.colors.gray};
 `;

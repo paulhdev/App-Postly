@@ -4,6 +4,8 @@ import { View, ActivityIndicator } from 'react-native'
 import AuthRoutes from './auth.routes'
 import AppRoutes from './app.routes'
 
+import Loading from '../components/components/Loading'
+
 import { AuthContext } from '../contexts/AuthContext'
 
 export default function Routes() {
@@ -12,9 +14,7 @@ export default function Routes() {
 
   if (loading) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#eb5e11' }}>
-        <ActivityIndicator size='large' color='#fff' />
-      </View>
+      <Loading />
     )
   }
 

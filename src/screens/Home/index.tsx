@@ -14,13 +14,13 @@ import {
 import { AuthContext } from '../../contexts/AuthContext'
 
 type PostProps = {
-  id: String;
+  id: string;
   createdAt: Date;
-  content: String;
-  author: String;
-  userId: String;
-  likes: Number;
-  avatarUrl: String | null;
+  content: string;
+  author: string;
+  userId: string;
+  likes: number;
+  avatarUrl: string | null;
 }
 
 export default function Home() {
@@ -79,7 +79,7 @@ export default function Home() {
     }, [])
   )
 
-  const renderItem: ListRenderItem<PostProps> = ({ item }) => <Post data={item} currentUserId={user?.uid} />;
+  const renderItem: ListRenderItem<PostProps | unknown> = ({ item }) => <Post data={item} currentUserId={user?.uid} />;
 
   const getListPosts = () => {
     if (emptyList) {

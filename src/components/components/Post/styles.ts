@@ -16,7 +16,7 @@ export const Container = styled.View.attrs({
   width: 100%;
   margin: 15px auto;
   padding: 10px;
-  background: #fff;
+  background: ${(props) => props.theme.colors.white};
   border-radius: 7px;
 `;
 
@@ -44,12 +44,13 @@ export const ImagePost = styled.Image.attrs({
 `;
 
 export const Author = styled.Text`
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 14px;
+  font-family: ${(props) => props.theme.fonts.bold};
 `;
 
 export const Content = styled.Text`
-  font-size: 16px;
+  font-size: 14px;
+  font-family: ${(props) => props.theme.fonts.regular};
 `;
 
 export const CardFooter = styled.View`
@@ -66,7 +67,9 @@ export const LikesArea = styled.View`
 `;
 
 export const LikesNumber = styled.Text`
-  margin-right: 5px;
+  font-size: 12px;
+  font-family: ${(props) => props.theme.fonts.bold};
+  margin-left: 7px;
 `;
 
 export const Icon = styled(Ionicons)`
@@ -75,6 +78,6 @@ export const Icon = styled(Ionicons)`
 
 export const TimePost = styled.Text`
   font-size: 12px;
-  font-weight: bold;
-  color: #c4bebc;
+  font-family: ${(props) => props.theme.fonts.bold};
+  color: ${(props) => props.theme.colors.gray};
 `;

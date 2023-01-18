@@ -20,15 +20,18 @@ import {
 
 type PostProps = {
   data: {
-    id: String;
-    createdAt: Date;
-    content: String;
-    author: String;
-    userId: String;
-    likes: Number;
-    avatarUrl: String | null;
+    id: string;
+    createdAt: {
+      seconds: number;
+      nanoseconds: number
+    };
+    content: string;
+    author: string;
+    userId: string;
+    likes: number;
+    avatarUrl: string | null;
   };
-  currentUserId: String;
+  currentUserId: string;
 }
 
 export default function Post({ data, currentUserId }: PostProps) {
@@ -105,13 +108,16 @@ export default function Post({ data, currentUserId }: PostProps) {
       }
       <CardFooter>
         <LikesArea>
-          <LikesNumber>
-            {likePost === 0 ? '' : Number(likePost)}
-          </LikesNumber>
-          <TouchableOpacity onPress={() => handlePostLike(String(data.id), Number(likePost))}>
+          <TouchableOpacity onPress={() => handlePostLike(data.id, likePost)}>
             {/* Check if the current user liked */}
             <Icon name={!isLiked ? 'heart-outline' : 'heart'} color={!isLiked ? '#000' : '#e52246'} />
           </TouchableOpacity>
+          {
+            likePost !== 0 &&
+            <LikesNumber>
+              {likePost} {likePost > 1 ? ' Curtidas' : ' Curtida'}
+            </LikesNumber>
+          }
         </LikesArea>
         <TimePost>
           {formatTime()}
