@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { formatDistance } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
-import firebase from '../../../services/firebaseConnect'
+import firebase from '../../services/firebaseConnect'
 
 import {
   Container,

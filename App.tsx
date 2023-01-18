@@ -12,7 +12,7 @@ import {
 import Routes from './src/routes';
 
 import AuthProvider from './src/contexts/AuthContext';
-import Loading from './src/components/components/Loading';
+import Loading from './src/components/Loading';
 import theme from './src/global/styles/theme';
 
 export default function App() {
@@ -23,7 +23,7 @@ export default function App() {
     Poppins_700Bold
   })
 
-  if (fontsLoaded) {
+  if (!fontsLoaded) {
     <Loading />
   }
 

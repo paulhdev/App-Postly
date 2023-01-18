@@ -4,7 +4,7 @@ import { View, ActivityIndicator } from 'react-native'
 import AuthRoutes from './auth.routes'
 import AppRoutes from './app.routes'
 
-import Loading from '../components/components/Loading'
+import Loading from '../components/Loading'
 
 import { AuthContext } from '../contexts/AuthContext'
 

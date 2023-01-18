@@ -3,8 +3,8 @@ import { ActivityIndicator, ListRenderItem } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 import firebase from '../../services/firebaseConnect'
 
-import Header from '../../components/components/Header'
-import Post from '../../components/components/Post'
+import Header from '../../components/Header'
+import Post from '../../components/Post'
 
 import {
   Container,

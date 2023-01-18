@@ -23,8 +23,8 @@ export const Description = styled.Text`
 `;
 
 export const Title = styled.Text`
-  font-size: 18px;
-  font-family: ${(props) => props.theme.fonts.bold};
+  font-size: 16px;
+  font-family: ${(props) => props.theme.fonts.medium};
 `;
 
 export const AreaIcons = styled.View`
