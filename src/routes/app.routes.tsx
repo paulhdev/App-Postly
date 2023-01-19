@@ -8,13 +8,15 @@ import NewPost from '../screens/NewPost'
 import Search from '../screens/Search'
 import Profile from '../screens/Profile'
 import UserPosts from '../screens/UserPosts'
+import Info from '../screens/Info';
 
 export type stackAppNavigationProps = {
   Home: undefined,
   UserPosts: {
     uid: string,
     name: string
-  }
+  },
+  Info: undefined
 }
 
 export type propsStack = NativeStackNavigationProp<stackAppNavigationProps>
@@ -35,6 +37,16 @@ function StackRoutes() {
       <Stack.Screen
         name='UserPosts'
         component={UserPosts}
+        options={{
+          headerTintColor: '#ffffff',
+          headerStyle: {
+            backgroundColor: '#eb5e11',
+          }
+        }}
+      />
+      <Stack.Screen
+        name='Info'
+        component={Info}
         options={{
           headerTintColor: '#ffffff',
           headerStyle: {

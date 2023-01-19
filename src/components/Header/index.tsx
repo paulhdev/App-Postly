@@ -1,6 +1,8 @@
+import { useNavigation } from '@react-navigation/native'
 import React, { useContext } from 'react'
 import { View, TouchableOpacity } from 'react-native'
 import { AuthContext } from '../../contexts/AuthContext'
+import { propsStack } from '../../routes/app.routes'
 
 import {
   Container,
@@ -14,6 +16,12 @@ export default function Header() {
 
   const { user, signOut } = useContext(AuthContext)
 
+  const navigation = useNavigation<propsStack>()
+
+  const handleScreenInfo = () => {
+    navigation.navigate('Info')
+  }
+
   return (
     <Container>
       <View>
@@ -21,8 +29,8 @@ export default function Header() {
         <Title numberOfLines={1}>{user.name}</Title>
       </View>
       <AreaIcons>
-        <TouchableOpacity>
-          <Icon name='notifications-outline' />
+        <TouchableOpacity onPress={handleScreenInfo}>
+          <Icon name='help-buoy-outline' />
         </TouchableOpacity>
         <TouchableOpacity onPress={signOut}>
           <Icon name='exit-outline' />
