@@ -8,12 +8,6 @@ export const Container = styled.View`
   background-color: ${(props) => props.theme.colors.white};
 `;
 
-export const Title = styled.Text`
-  font-size: 50px;
-  margin-bottom: 30px;
-  font-family: ${(props) => props.theme.fonts.bold};
-`;
-
 export const InputArea = styled.View`
   max-width: 90%;
   width: 100%;

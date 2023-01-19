@@ -3,7 +3,6 @@ import { ActivityIndicator } from 'react-native'
 
 import {
   Container,
-  Title,
   InputArea,
   Icon,
   Input,
@@ -14,6 +13,7 @@ import {
 } from './styles'
 
 import { AuthContext } from '../../contexts/AuthContext'
+import Logo from '../../components/Logo'
 
 export default function Login() {
 
@@ -50,7 +50,7 @@ export default function Login() {
   if (!login) {
     return (
       <Container>
-        <Title>Postly</Title>
+        <Logo />
         <InputArea>
           <Icon name='person-outline' />
           <Input
@@ -73,7 +73,7 @@ export default function Login() {
           <Icon name='lock-closed-outline' />
           <Input
             placeholder='******'
-            secureTextEntry
+            secureTextEntry={true}
             value={pass}
             onChangeText={text => setPass(text)}
           />
@@ -95,7 +95,7 @@ export default function Login() {
 
   return (
     <Container>
-      <Title>Postly</Title>
+      <Logo />
       <InputArea>
         <Icon name='mail-outline' />
         <Input
@@ -110,7 +110,7 @@ export default function Login() {
         <Icon name='lock-closed-outline' />
         <Input
           placeholder='******'
-          secureTextEntry
+          secureTextEntry={true}
           value={pass}
           onChangeText={text => setPass(text)}
         />
