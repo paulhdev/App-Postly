@@ -12,7 +12,8 @@ import UserPosts from '../screens/UserPosts'
 export type stackAppNavigationProps = {
   Home: undefined,
   UserPosts: {
-    uid: string
+    uid: string,
+    name: string
   }
 }
 
@@ -23,18 +24,23 @@ const Stack = createNativeStackNavigator<stackAppNavigationProps>()
 
 function StackRoutes() {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false
-      }}
-    >
+    <Stack.Navigator>
       <Stack.Screen
         name='Home'
         component={Home}
+        options={{
+          headerShown: false
+        }}
       />
       <Stack.Screen
         name='UserPosts'
         component={UserPosts}
+        options={{
+          headerTintColor: '#ffffff',
+          headerStyle: {
+            backgroundColor: '#eb5e11',
+          }
+        }}
       />
     </Stack.Navigator>
   )

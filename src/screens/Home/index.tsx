@@ -9,6 +9,7 @@ import Post from '../../components/Post'
 import {
   Container,
   ListPosts,
+  LoadingArea
 } from './styles'
 
 import { AuthContext } from '../../contexts/AuthContext'
@@ -160,7 +161,9 @@ export default function Home() {
       <Header />
       {
         loading &&
-        <ActivityIndicator size='large' color='#eb5e11' />
+        <LoadingArea>
+          <ActivityIndicator size='large' color='#eb5e11' />
+        </LoadingArea>
       }
       {
         posts.length !== 0 &&

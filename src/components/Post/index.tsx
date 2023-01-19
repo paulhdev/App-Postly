@@ -17,6 +17,8 @@ import {
   Icon,
   TimePost
 } from './styles'
+import { useNavigation } from '@react-navigation/native'
+import { propsStack } from '../../routes/app.routes'
 
 type PostProps = {
   data: {
@@ -35,6 +37,8 @@ type PostProps = {
 }
 
 export default function Post({ data, currentUserId }: PostProps) {
+
+  const navigation = useNavigation<propsStack>()
 
   const [likePost, setLikePost] = useState(data.likes)
   const [isLiked, setIsLiked] = useState(false)
@@ -95,12 +99,21 @@ export default function Post({ data, currentUserId }: PostProps) {
     )
   }
 
+  const handleScreenUserPosts = (uid: string, name: string) => {
+    navigation.navigate('UserPosts', {
+      uid: uid,
+      name: name
+    })
+  }
+
   return (
     <Container>
-      <CardHeader>
-        <Avatar source={{ uri: 'https://avatars.githubusercontent.com/u/42824466?v=4' }} />
-        <Author numberOfLines={1}>{data.author}</Author>
-      </CardHeader>
+      <TouchableOpacity onPress={() => handleScreenUserPosts(data.userId, data.author)}>
+        <CardHeader>
+          <Avatar source={{ uri: 'https://avatars.githubusercontent.com/u/42824466?v=4' }} />
+          <Author numberOfLines={1}>{data.author}</Author>
+        </CardHeader>
+      </TouchableOpacity>
       <ImagePost source={{ uri: 'https://www.folhadealphaville.com.br/images/articles/4012/b2ap3_large_decoracao-de-home-office-800x600.jpg' }} />
       {
         data.content !== '' &&
