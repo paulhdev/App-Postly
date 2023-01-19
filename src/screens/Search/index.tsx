@@ -1,10 +1,80 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { ListRenderItem } from 'react-native'
+import firebase from '../../services/firebaseConnect'
+
+import {
+  Container,
+  Title,
+  InputArea,
+  Input,
+  Icon,
+  List
+} from './styles'
+
+import SearchItem from '../../components/SearchItem'
+
+type UserListProps = {
+  uid: string,
+  name: string,
+  email: string
+}
 
 export default function Search() {
+
+  const [name, setName] = useState('')
+  const [users, setUsers] = useState<UserListProps[] | []>([])
+
+  useEffect(() => {
+    if (name === '' || name === undefined) {
+      setUsers([])
+      return
+    }
+
+    const subscriber = firebase.firestore().collection('users')
+      .where('name', '>=', name)
+      .where('name', '<=', name + '\uf8ff')
+      .onSnapshot(snapshot => {
+        const listUsers = [] as UserListProps[]
+
+        snapshot.forEach(doc => {
+          const newUserItem = {
+            uid: doc.id,
+            name: doc.data().name,
+            email: doc.data().email
+          } as UserListProps
+
+          listUsers.push(newUserItem)
+        })
+
+        setUsers(listUsers)
+
+      })
+
+    return () => subscriber()
+
+  }, [name])
+
+  const renderItem: ListRenderItem<UserListProps | unknown> = ({ item }) => <SearchItem data={item} />
+
   return (
-    <View>
-      <Text>Search</Text>
-    </View>
+    <Container>
+      <Title>Procurando alguém?</Title>
+      <InputArea>
+        <Icon name='search-outline' />
+        <Input
+          value={name}
+          onChangeText={text => setName(text)}
+          placeholder='Digite o nome aqui...'
+        />
+      </InputArea>
+      {
+        users.length !== 0 &&
+        <List
+          data={users}
+          renderItem={renderItem}
+          showsVerticalScrollIndicator={false}
+        />
+      }
+    </Container>
   )
 }

@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-export const Container = styled.View`
+export const Container = styled.SafeAreaView`
   flex: 1;
   background: ${(props) => props.theme.colors.white};
   padding: 20px 5%;
