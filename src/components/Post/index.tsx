@@ -110,7 +110,7 @@ export default function Post({ data, currentUserId }: PostProps) {
     <Container>
       <TouchableOpacity onPress={() => handleScreenUserPosts(data.userId, data.author)}>
         <CardHeader>
-          <Avatar source={{ uri: 'https://avatars.githubusercontent.com/u/42824466?v=4' }} />
+          <Avatar source={{ uri: data.avatarUrl !== null ? data.avatarUrl : 'https://avatars.githubusercontent.com/u/42824466?v=4' }} />
           <Author numberOfLines={1}>{data.author}</Author>
         </CardHeader>
       </TouchableOpacity>

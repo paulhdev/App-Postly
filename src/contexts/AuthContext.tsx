@@ -18,6 +18,7 @@ type UserProps = {
   uid: string;
   name: string;
   email: string;
+  avatarUrl: string | null;
 }
 
 type AuthProviderProps = {
@@ -49,7 +50,8 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         const data = {
           uid: uid as string,
           name: currentUser.user?.displayName as string,
-          email: currentUser.user?.email as string
+          email: currentUser.user?.email as string,
+          avatarUrl: currentUser.user?.photoURL ? currentUser.user?.photoURL : null
         }
 
         setUser(data)
@@ -89,7 +91,8 @@ export default function AuthProvider({ children }: AuthProviderProps) {
             const data = {
               uid: uid as string,
               name: name,
-              email: email
+              email: email,
+              avatarUrl: null
             }
 
             setUser(data)

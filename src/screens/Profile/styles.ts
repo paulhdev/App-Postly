@@ -98,6 +98,12 @@ export const IconInput = styled(Ionicons)`
   color: ${(props) => props.theme.colors.gray};
 `;
 
+export const UploadText = styled.Text`
+  color: ${(props) => props.theme.colors.primary};
+  font-family: ${(props) => props.theme.fonts.bold};
+  margin: 10px 0;
+`;
+
 export const Input = styled.TextInput`
   font-size: 16px;
   flex-grow: 1;
