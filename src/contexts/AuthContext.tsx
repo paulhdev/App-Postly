@@ -6,6 +6,8 @@ type AuthContextData = {
   signIn: (email: string, pass: string) => void;
   signUp: (name: string, email: string, pass: string) => void;
   signOut: () => void;
+  storageUser: (data: UserProps) => void;
+  setUser: (user: UserProps) => void;
   signed: boolean;
   loading: boolean;
   loadingAuth: boolean;
@@ -139,6 +141,8 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       signIn,
       signUp,
       signOut,
+      storageUser,
+      setUser,
       signed,
       loading,
       loadingAuth,

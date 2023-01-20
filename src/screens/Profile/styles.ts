@@ -59,3 +59,49 @@ export const Avatar = styled.Image`
   height: 160px;
   border-radius: 80px;
 `;
+
+export const ModalContainer = styled.KeyboardAvoidingView`
+  width: 100%;
+  height: 40%;
+  background: ${(props) => props.theme.colors.white};
+  position: absolute;
+  bottom: 0;
+  align-items: center;
+  justify-content: center;
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+`;
+
+export const ButtonSecondary = styled.TouchableOpacity``;
+
+export const ButtonSecondaryText = styled.Text`
+  color: ${(props) => props.theme.colors.gray};
+  font-family: ${(props) => props.theme.fonts.bold};
+`;
+
+export const InputArea = styled.View`
+  max-width: 90%;
+  width: 100%;
+  height: 55px;
+  flex-direction: row;
+  align-items: center;
+  background: transparent;
+  padding: 10px;
+  border-radius: 7px;
+  border-bottom-width: 1px;
+  border-color: ${(props) => props.theme.colors.primary};
+  margin-top: 15px;
+`;
+
+export const IconInput = styled(Ionicons)`
+  font-size: 24px;
+  color: ${(props) => props.theme.colors.gray};
+`;
+
+export const Input = styled.TextInput`
+  font-size: 16px;
+  flex-grow: 1;
+  margin-left: 5px;
+  height: 55px;
+  font-family: ${(props) => props.theme.fonts.regular};
+`;

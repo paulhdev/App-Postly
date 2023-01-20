@@ -80,7 +80,7 @@ export default function Home() {
     }, [])
   )
 
-  const renderItem: ListRenderItem<PostProps | unknown> = ({ item }) => <Post data={item} currentUserId={user?.uid} />
+  const renderItem: ListRenderItem<PostProps> = ({ item }) => <Post data={item} currentUserId={user?.uid} />
 
   const getListPosts = () => {
     if (emptyList) {
