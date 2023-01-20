@@ -40,7 +40,7 @@ export const ImagePost = styled.Image.attrs({
   width: 100%;
   height: 250px;
   border-radius: 7px;
-  margin: 10px 0;
+  margin-top: 10px;
 `;
 
 export const Author = styled.Text`
@@ -51,6 +51,7 @@ export const Author = styled.Text`
 export const Content = styled.Text`
   font-size: 14px;
   font-family: ${(props) => props.theme.fonts.regular};
+  margin-top: 10px;
 `;
 
 export const CardFooter = styled.View`

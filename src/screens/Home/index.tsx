@@ -22,6 +22,7 @@ type PostProps = {
   userId: string;
   likes: number;
   avatarUrl: string | null;
+  imageUrl: string | null;
 }
 
 export default function Home() {
@@ -58,7 +59,8 @@ export default function Home() {
                   author: document.data().author,
                   userId: document.data().userId,
                   likes: document.data().likes,
-                  avatarUrl: document.data().avatarUrl
+                  avatarUrl: document.data().avatarUrl,
+                  imageUrl: document.data().imageUrl
                 } as PostProps
 
                 postList.push(newPostItem)
@@ -106,7 +108,8 @@ export default function Home() {
             author: document.data().author,
             userId: document.data().userId,
             likes: document.data().likes,
-            avatarUrl: document.data().avatarUrl
+            avatarUrl: document.data().avatarUrl,
+            imageUrl: document.data().imageUrl
           } as PostProps
 
           postList.push(newPostItem)
@@ -141,7 +144,8 @@ export default function Home() {
             author: document.data().author,
             userId: document.data().userId,
             likes: document.data().likes,
-            avatarUrl: document.data().avatarUrl
+            avatarUrl: document.data().avatarUrl,
+            imageUrl: document.data().imageUrl
           } as PostProps
 
           postList.push(newPostItem)

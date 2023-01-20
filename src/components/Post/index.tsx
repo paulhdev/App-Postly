@@ -32,6 +32,7 @@ type PostProps = {
     userId: string;
     likes: number;
     avatarUrl: string | null;
+    imageUrl: string | null;
   };
   currentUserId: string;
 }
@@ -114,7 +115,10 @@ export default function Post({ data, currentUserId }: PostProps) {
           <Author numberOfLines={1}>{data.author}</Author>
         </CardHeader>
       </TouchableOpacity>
-      <ImagePost source={{ uri: 'https://www.folhadealphaville.com.br/images/articles/4012/b2ap3_large_decoracao-de-home-office-800x600.jpg' }} />
+      {
+        data.imageUrl !== null &&
+        <ImagePost source={{ uri: data.imageUrl }} />
+      }
       {
         data.content !== '' &&
         <Content>{data.content}</Content>

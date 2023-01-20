@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { View, ActivityIndicator, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import * as ImagePicker from 'expo-image-picker'
+import uuid from 'react-native-uuid';
 import firebase from '../../services/firebaseConnect'
 
 import { propsStack } from '../../routes/app.routes'
@@ -23,11 +24,12 @@ import { AuthContext } from '../../contexts/AuthContext'
 
 type PostProps = {
   createdAt: Date;
-  content: String,
-  author: String,
-  userId: String,
-  likes: Number,
-  avatarUrl: String | null,
+  content: string;
+  author: string;
+  userId: string;
+  likes: number;
+  avatarUrl: string | null;
+  imageUrl: string | null;
 }
 
 const MAX_LENGHT = 200
@@ -76,25 +78,38 @@ export default function NewPost() {
       return
     }
 
-    setImageUri(result.uri as string)
+    setImageUri(result.assets[0].uri)
+  }
+
+  const uploadPostImage = async () => {
+    const res = await fetch(imageUri)
+    const blob = await res.blob()
+
+    const uid = `${user?.uid}_${uuid.v4()}`
+
+    let currentFile = null;
+
+    await firebase.storage().ref('posts').child(uid).put(blob)
+      .then(async () => {
+        const storageRef = firebase.storage().ref('posts').child(uid)
+        await storageRef.getDownloadURL()
+          .then(image => {
+            currentFile = image
+          })
+      })
+
+    return currentFile
   }
 
   const handlePost = async () => {
     setLoadingPost(true)
-    if (postText === '') {
+    if (postText === '' && !isFile) {
       alert('Seu post deve ter algum conteúdo!')
       setLoadingPost(false)
       return
     }
 
-    let avatarUrl = null
-
-    try {
-      const response = await firebase.storage().ref('users').child(user?.uid).getDownloadURL()
-      avatarUrl = response
-    } catch (err) {
-      avatarUrl = null
-    }
+    const fileUrl = isFile ? await uploadPostImage() : null
 
     const data = {
       createdAt: new Date(),
@@ -102,11 +117,13 @@ export default function NewPost() {
       author: user?.name,
       userId: user?.uid,
       likes: 0,
-      avatarUrl,
+      avatarUrl: user?.avatarUrl,
+      imageUrl: fileUrl
     } as PostProps
 
     await firebase.firestore().collection('posts').add({ ...data })
       .then(() => {
+        handleClearFile()
         setPostText('')
         setLoadingPost(false)
         navigation.navigate('Home')
