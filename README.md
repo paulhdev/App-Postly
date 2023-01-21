@@ -29,7 +29,7 @@
 
 This project was created with study purposes, with following technologies:
 
-- [ReactJS](https://reactnative.dev/)
+- [React Native](https://reactnative.dev/)
 - [Expo](https://expo.dev/)
 - [Styled-components](https://styled-components.com/)
 - [TypeScript](https://www.typescriptlang.org/)
