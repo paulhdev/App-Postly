@@ -85,6 +85,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         await firebase.firestore().collection('users').doc(uid).set({
           name: name,
           email: email,
+          avatarUrl: null,
           createdAt: new Date()
         })
           .then(() => {

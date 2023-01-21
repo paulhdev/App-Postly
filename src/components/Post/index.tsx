@@ -37,6 +37,8 @@ type PostProps = {
   currentUserId: string;
 }
 
+const defaultAvatar = require('../../assets/default-avatar.png')
+
 export default function Post({ data, currentUserId }: PostProps) {
 
   const navigation = useNavigation<propsStack>()
@@ -111,7 +113,7 @@ export default function Post({ data, currentUserId }: PostProps) {
     <Container>
       <TouchableOpacity onPress={() => handleScreenUserPosts(data.userId, data.author)}>
         <CardHeader>
-          <Avatar source={{ uri: data.avatarUrl !== null ? data.avatarUrl : 'https://avatars.githubusercontent.com/u/42824466?v=4' }} />
+          <Avatar source={data.avatarUrl === null ? defaultAvatar : { uri: data.avatarUrl }} />
           <Author numberOfLines={1}>{data.author}</Author>
         </CardHeader>
       </TouchableOpacity>

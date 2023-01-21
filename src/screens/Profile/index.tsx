@@ -127,13 +127,17 @@ export default function Profile() {
         await currentUser?.updateProfile({
           photoURL: image
         })
-          .then(() => {
+          .then(async () => {
             const data = {
               uid: user?.uid,
               name: name,
               email: user?.email,
               avatarUrl: image
             }
+
+            await firebase.firestore().collection('users').doc(user?.uid).update({
+              avatarUrl: image
+            })
 
             setUser(data)
             storageUser(data)

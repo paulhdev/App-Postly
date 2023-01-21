@@ -16,7 +16,8 @@ import SearchItem from '../../components/SearchItem'
 type UserListProps = {
   uid: string,
   name: string,
-  email: string
+  email: string,
+  avatarUrl: string | null
 }
 
 export default function Search() {
@@ -40,7 +41,8 @@ export default function Search() {
           const newUserItem = {
             uid: doc.id,
             name: doc.data().name,
-            email: doc.data().email
+            email: doc.data().email,
+            avatarUrl: doc.data().avatarUrl
           } as UserListProps
 
           listUsers.push(newUserItem)
@@ -54,7 +56,7 @@ export default function Search() {
 
   }, [name])
 
-  const renderItem: ListRenderItem<UserListProps | unknown> = ({ item }) => <SearchItem data={item} />
+  const renderItem: ListRenderItem<UserListProps> = ({ item }) => <SearchItem data={item} />
 
   return (
     <Container>
