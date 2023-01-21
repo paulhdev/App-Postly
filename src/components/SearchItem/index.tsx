@@ -8,7 +8,7 @@ import {
   Icon
 } from './styles'
 
-import { stackAppNavigationProps } from '../../routes/app.routes'
+import { propsStack, stackAppNavigationProps } from '../../routes/app.routes'
 
 type ItemProps = {
   data: {
@@ -18,9 +18,11 @@ type ItemProps = {
   }
 }
 
+// ADD AVATAR IMAGE
+
 export default function SearchItem({ data }: ItemProps) {
 
-  const navigation = useNavigation<stackAppNavigationProps>()
+  const navigation = useNavigation<propsStack>()
 
   const handleScreenUserPosts = () => {
     navigation.navigate('UserPosts', {

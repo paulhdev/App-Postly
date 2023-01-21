@@ -1,4 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
+import { LogBox } from 'react-native'
 import { ThemeProvider } from 'styled-components';
 import { NavigationContainer } from '@react-navigation/native'
 
@@ -15,6 +16,8 @@ import AuthProvider from './src/contexts/AuthContext';
 import Loading from './src/components/Loading';
 import theme from './src/global/styles/theme';
 
+LogBox.ignoreAllLogs();
+
 export default function App() {
 
   const [fontsLoaded] = useFonts({
@@ -24,7 +27,7 @@ export default function App() {
   })
 
   if (!fontsLoaded) {
-    <Loading />
+    return <Loading />
   }
 
   return (

@@ -69,6 +69,7 @@ export default function Home() {
               setEmptyList(!!snapshot.empty)
               setPosts(postList)
               setLastItem(snapshot.docs[snapshot.docs.length - 1])
+              console.log('LAST ITEM ==> ', snapshot.docs[snapshot.docs.length - 1])
               setLoading(false)
             }
           })
